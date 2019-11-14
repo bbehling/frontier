@@ -11,6 +11,7 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
+// use moment to format dates
 Vue.use(require("vue-moment"));
 
 //TODO - reseach a good library that will contain all the filters we need

@@ -16,7 +16,11 @@
               <h3>Active</h3>
             </div>
             <div class="account-container active-account">
-              <ul class="account-data-list" v-for="account in activeAccounts" v-bind:key="account.id">
+              <ul
+                class="account-data-list"
+                v-for="account in activeAccounts"
+                v-bind:key="account.id"
+              >
                 <li>
                   <label>Name:</label>
                   {{ account.LastName }}, {{ account.FirstName }}
@@ -45,7 +49,11 @@
               <h3>Overdue</h3>
             </div>
             <div class="account-container overdue-account">
-              <ul class="account-data-list" v-for="account in overdueAccounts" v-bind:key="account.id">
+              <ul
+                class="account-data-list"
+                v-for="account in overdueAccounts"
+                v-bind:key="account.id"
+              >
                 <li>
                   <label>Name:</label>
                   {{ account.LastName }}, {{ account.FirstName }}
@@ -74,7 +82,11 @@
               <h3>Inactive</h3>
             </div>
             <div class="account-container inactive-account">
-              <ul class="account-data-list" v-for="account in inactiveAccounts" v-bind:key="account.id">
+              <ul
+                class="account-data-list"
+                v-for="account in inactiveAccounts"
+                v-bind:key="account.id"
+              >
                 <li>
                   <label>Name:</label>
                   {{ account.LastName }}, {{ account.FirstName }}
@@ -101,29 +113,48 @@
         </section>
       </main>
       <footer class="grid">
-        <p class="copy">&copy;</p>
+        <p class="copy">
+          &copy;
+          <!--Can't put script tag in Vue Template-->
+          {{ copyrightYear }}
+        </p>
       </footer>
     </article>
   </div>
 </template>
 
 <script lang="ts">
+/*
+  Allow parameters without declaring their type in tsconfig
+  TypeScript types are not required for this demo
+  TODO - fully utilize TypeScript by creating Account Class and Account Interface and implement type checking
+*/
+
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
 import axios from "axios";
+import store from "@/store";
 
 @Component({})
-//Allow parameters without declaring their type in tsconfig
-//TypeScript types are not required for this demo
-//TODO - fully utilize TypeScript by creating Account Class and Account Interface and implement type checking
 export default class App extends Vue {
   //set accounts to null to make it reactive
   accounts = null;
+  copyrightYear = new Date().getFullYear();
   mounted() {
-    axios.get("https://frontiercodingtests.azurewebsites.net/api/accounts/getall").then(response => {
-      this.accounts = response.data;
-    });
+    this.$store
+      .dispatch("fetchAccounts")
+      .then(accounts => {
+        this.accounts = accounts;
+      })
+      .catch(error => {
+        // you got an error!
+        console.log(error);
+      });
   }
+
+  // use computed values instead of adding filters to v-for
+  // NOTE: linter suggests this is a best practice
+  // TODO - determine if computed vars should go into vuex mutators
+  // but since data is read only, probably not necessary
 
   get activeAccounts() {
     return (
