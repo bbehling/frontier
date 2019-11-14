@@ -1,4 +1,4 @@
-# frontier
+# frontier Vue
 
 ## Project setup
 ```
