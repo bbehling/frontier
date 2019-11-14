@@ -4,6 +4,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
+// use Vuex and store to data integrity
 export default new Vuex.Store({
   state: {
     accounts: []
