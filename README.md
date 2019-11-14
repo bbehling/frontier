@@ -1,4 +1,4 @@
-# frontier Vue
+# Frontier Assesment in Vue
 
 ## Project setup
 ```
