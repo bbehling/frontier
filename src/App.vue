@@ -128,6 +128,7 @@
   Allow parameters without declaring their type in tsconfig
   TypeScript types are not required for this demo
   TODO - fully utilize TypeScript by creating Account Class and Account Interface and implement type checking
+  TODO - refactor active, overdue, inactive columns into three components
 */
 
 import { Component, Vue } from "vue-property-decorator";
